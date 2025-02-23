@@ -1,0 +1,107 @@
+--Task1
+CREATE TABLE actors (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
+    name TEXT NOT NULL,
+    surname TEXT NOT NULL,
+    age INTEGER CHECK (age BETWEEN 5 AND 99),
+    live_in TEXT,
+    bank_account_budget INTEGER DEFAULT 10000000,
+    status TEXT CHECK (status IN ('single', 'married', 'divorced')),
+    sex TEXT CHECK (sex IN ('male', 'female')) NOT NULL
+);
+
+INSERT INTO actors (name, surname, age, live_in, bank_account_budget, status, sex) VALUES
+('Robert', 'Downey Jr.', 58, 'Los Angeles', 300000000, 'married', 'male'),
+('Chris', 'Evans', 42, 'Boston', 80000000, 'single', 'male'),
+('Scarlett', 'Johansson', 38, 'New York', 165000000, 'married', 'female'),
+('Chris', 'Hemsworth', 40, 'Sydney', 130000000, 'married', 'male'),
+('Mark', 'Ruffalo', 56, 'New York', 35000000, 'married', 'male'),
+('Jeremy', 'Renner', 52, 'Los Angeles', 50000000, 'divorced', 'male'),
+('Tom', 'Holland', 25, 'London', 25000000, 'single', 'male'),
+('Benedict', 'Cumberbatch', 47, 'London', 40000000, 'married', 'male'),
+('Chadwick', 'Boseman', 45, 'Los Angeles', 12000000, 'married', 'male'),
+('Brie', 'Larson', 34, 'Los Angeles', 25000000, 'single', 'female'),
+('Paul', 'Rudd', 54, 'New York', 70000000, 'married', 'male'),
+('Elizabeth', 'Olsen', 34, 'Los Angeles', 11000000, 'single', 'female'),
+('Anthony', 'Mackie', 45, 'New Orleans', 8000000, 'married', 'male'),
+('Tom', 'Hiddleston', 42, 'London', 25000000, 'single', 'male'),
+('Zoe', 'Saldana', 45, 'Los Angeles', 35000000, 'married', 'female');
+
+--Task2
+ALTER TABLE actors ADD COLUMN count_movies INTEGER;
+
+UPDATE actors SET count_movies = CASE
+    WHEN id = 1 THEN 20
+    WHEN id = 2 THEN 15
+    WHEN id = 3 THEN 25
+    WHEN id = 4 THEN 30
+    WHEN id = 5 THEN 22
+    WHEN id = 6 THEN 18
+    WHEN id = 7 THEN 28
+    WHEN id = 8 THEN 24
+    WHEN id = 9 THEN 19
+    WHEN id = 10 THEN 21
+    WHEN id = 11 THEN 23
+    WHEN id = 12 THEN 17
+    WHEN id = 13 THEN 16
+    WHEN id = 14 THEN 20
+    WHEN id = 15 THEN 22
+END;
+
+--Task3
+ALTER TABLE actors RENAME COLUMN surname TO last_name;
+ALTER TABLE actors ADD COLUMN country_in TEXT;
+
+UPDATE actors SET country_in = CASE
+    WHEN id = 1 THEN "USA"
+    WHEN id = 2 THEN "USA"
+    WHEN id = 3 THEN "USA"
+    WHEN id = 4 THEN "Australia"
+    WHEN id = 5 THEN "USA"
+    WHEN id = 6 THEN "USA"
+    WHEN id = 7 THEN "UK"
+    WHEN id = 8 THEN "UK"
+    WHEN id = 9 THEN "USA"
+    WHEN id = 10 THEN "USA"
+    WHEN id = 11 THEN "USA"
+    WHEN id = 12 THEN "USA"
+    WHEN id = 13 THEN "USA"
+    WHEN id = 14 THEN "UK"
+    WHEN id = 15 THEN "USA"
+END;
+
+--Task4
+SELECT * FROM actors WHERE age > 26;
+
+--Task5
+SELECT * FROM actors WHERE bank_account_budget > 50000 ORDER BY bank_account_budget DESC;
+
+--Task6
+SELECT COUNT(*) FROM actors WHERE sex = "male" and age > 55;
+
+--Task7
+SELECT * FROM actors WHERE count_movies >= 22 and bank_account_budget >= 10000000;
+
+--Task8
+SELECT * FROM actors WHERE live_in = "Moskow";
+
+--Task9
+SELECT * FROM actors WHERE name LIKE "A%";
+
+--Task10
+SELECT * FROM actors WHERE sex = "female" and country_in = "USA" and age >= 30;
+
+--Task11
+SELECT * FROM actors WHERE live_in is NULL;
+
+--Task12
+SELECT * FROM actors WHERE bank_account_budget = 0;
+
+--Task13
+SELECT * FROM actors ORDER BY bank_account_budget DESC LIMIT 5;
+
+--Task14
+SELECT * FROM actors ORDER BY age DESC;
+
+--Task15
+SELECT * FROM actors WHERE age < 50 and status = "single";
